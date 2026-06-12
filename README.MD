@@ -13,10 +13,10 @@ Một nền tảng mô phỏng cho Hệ Thống Điều Khiển Tàu Dựa Trên
 
 ### Yêu Cầu Hệ Thống
 
-- Python 3.8 trở lên
-- Windows 10+, Linux (Ubuntu 18.04+), macOS 10.14+
-- RAM tối thiểu: 2GB
-- Dung lượng đĩa: 500MB
++ Python 3.8 trở lên
++ Windows 10+, Linux (Ubuntu 18.04+), macOS 10.14+
++ RAM tối thiểu: 2GB
++ Dung lượng đĩa: 500MB
 
 ### Cài Đặt Dependencies
 
@@ -69,21 +69,21 @@ python run.py
 Cửa sổ chính gồm ba phần:
 
 1. **Bảng Điều Khiển (Trái)**
-   - Bật/Tắt ATO
-   - Đặt mục tiêu dừng
-   - Kiểm tra sức khỏe DCS
-   - Chế độ jogging
+   + Bật/Tắt ATO
+   + Đặt mục tiêu dừng
+   + Kiểm tra sức khỏe DCS
+   + Chế độ jogging
 
 2. **Hiển Thị Chính (Giữa)**
-   - Vị trí tàu thực thời
-   - Vận tốc, gia tốc
-   - Trạng thái ATP/ATO
-   - Thẻ nhận dạng di chuyển
+   + Vị trí tàu thực thời
+   + Vận tốc, gia tốc
+   + Trạng thái ATP/ATO
+   + Thẻ nhận dạng di chuyển
 
 3. **Phân Tích (Phải)**
-   - Đồ thị đường cong P, W, B
-   - Lịch sử tàu
-   - Phân tích hiệu suất
+   + Đồ thị đường cong P, W, B
+   + Lịch sử tàu
+   + Phân tích hiệu suất
 
 ### Điều Khiển Cơ Bản
 
@@ -243,62 +243,62 @@ localization:
 
 Hệ thống bảo vệ chính đảm bảo an toàn giao thông:
 
-- Tính toán phong bè tốc độ an toàn dựa trên vị trí và MA
-- Quản lý đường cong tốc độ: P, W, SBD, EBD
-- Xử lý phanh dịch vụ và phanh khẩn cấp
-- Tính toán độ trễ phanh thực tế (1.5 giây)
-- Điều chỉnh theo gradient đường ray
-- Quản lý lề an toàn động
++ Tính toán phong bè tốc độ an toàn dựa trên vị trí và MA
++ Quản lý đường cong tốc độ: P, W, SBD, EBD
++ Xử lý phanh dịch vụ và phanh khẩn cấp
++ Tính toán độ trễ phanh thực tế (1.5 giây)
++ Điều chỉnh theo gradient đường ray
++ Quản lý lề an toàn động
 
 ### 2. ATO (Automatic Train Operation)
 
 Hệ thống vận hành tàu tự động:
 
-- Tạo mục tiêu vận hành không vi phạm ATP
-- Bộ điều khiển PID cho điều khiển tốc độ
-- Dừng chính xác tại trạm (±0.5m)
-- Hỗ trợ coasting và hồ sơ leo dốc
++ Tạo mục tiêu vận hành không vi phạm ATP
++ Bộ điều khiển PID cho điều khiển tốc độ
++ Dừng chính xác tại trạm (±0.5m)
++ Hỗ trợ coasting và hồ sơ leo dốc
 
 ### 3. Train Model (Mô Hình Tàu)
 
 Mô phỏng chi tiết của tàu vật lý:
 
-- Tính toán lực kéo, phanh, cản chạy
-- Mô hình chuyển động Newton (F = ma)
-- Tính toán cản chạy polynomial: a_resist = A + B*v + C*v²
-- Quản lý gradient: F_gradient = m*g*sin(θ)
-- Hỗ trợ các khối lượng khác nhau
-- Giới hạn jerk (0.75 m/s³)
++ Tính toán lực kéo, phanh, cản chạy
++ Mô hình chuyển động Newton (F = ma)
++ Tính toán cản chạy polynomial: a_resist = A + B*v + C*v²
++ Quản lý gradient: F_gradient = m*g*sin(θ)
++ Hỗ trợ các khối lượng khác nhau
++ Giới hạn jerk (0.75 m/s³)
 
 ### 4. Zone Controller (ZC)
 
 Điều khiển vùng:
 
-- Cấp (MA) cho tàu
-- Tính toán bảo vệ chống va chạm
-- Quản lý mục tiêu dừng
-- Hỗ trợ chế độ moving_block
++ Cấp (MA) cho tàu
++ Tính toán bảo vệ chống va chạm
++ Quản lý mục tiêu dừng
++ Hỗ trợ chế độ moving_block
 
 ### 5. Communication (Truyền thông)
 
 Truyền thông an toàn tàu-cơ sở hạ tầng:
 
-- RASTA protocol: truyền thông an toàn với CRC
-- OpcUA: giao thức tự động hóa
-- Báo cáo vị trí định kỳ 
-- Báo cáo sự kiện khi tốc độ thay đổi 
-- Quản lý phạm vi Radio Access Points (RAP)
-- Hỗ trợ nhiều điểm tiếp cận radio
++ RASTA protocol: truyền thông an toàn với CRC
++ OpcUA: giao thức tự động hóa
++ Báo cáo vị trí định kỳ 
++ Báo cáo sự kiện khi tốc độ thay đổi 
++ Quản lý phạm vi Radio Access Points (RAP)
++ Hỗ trợ nhiều điểm tiếp cận radio
 
 ### 6. GUI (Giao Diện Người Dùng)
 
 Hiển thị trực quan và điều khiển:
 
-- Bảng điều khiển tương tác
-- Hiển thị thời gian thực vị trí/tốc độ
-- Đồ thị đường cong ATP
-- Lịch sử sự kiện
-- Quản lý kịch bản
++ Bảng điều khiển tương tác
++ Hiển thị thời gian thực vị trí/tốc độ
++ Đồ thị đường cong ATP
++ Lịch sử sự kiện
++ Quản lý kịch bản
 
 ## Mô Hình Vật Lý
 
@@ -309,10 +309,10 @@ Gia tốc tàu dựa trên lực Newton:
 a = (F_traction - F_brake - F_resistance) / m
 
 Trong đó:
-- F_traction: Lực kéo từ động cơ
-- F_brake: Lực phanh (dịch vụ hoặc khẩn cấp)
-- F_resistance: Lực cản (chạy + gradient)
-- m: Khối lượng tương đương
++ F_traction: Lực kéo từ động cơ
++ F_brake: Lực phanh (dịch vụ hoặc khẩn cấp)
++ F_resistance: Lực cản (chạy + gradient)
++ m: Khối lượng tương đương
 
 ### Lực Cản
 
@@ -321,10 +321,10 @@ Mô hình polynomial:
 F_resistance = m * (A + B*v + C*v²) + m*g*sin(θ)
 
 Hệ số cản:
-- A = 0.012 m/s²
-- B = 0.00035 s/m
-- C = 0.00002 1/m
-- θ = gradient đường ray
++ A = 0.012 m/s²
++ B = 0.00035 s/m
++ C = 0.00002 1/m
++ θ = gradient đường ray
 
 ### Mô Hình Phanh
 
@@ -399,10 +399,10 @@ raps = scenario['radio_access_points']
 
 ## Tiêu Chuẩn Tham Khảo
 
-- EN 50159: Truyền thông an toàn trong hệ thống lưu lượng
-- EN 50128: Phần mềm cho hệ thống lưu lượng
-- EN 50126: Bảo vệ điều khiển tàu
-- IEC 61508: Chức năng an toàn hệ thống
++ EN 50159: Truyền thông an toàn trong hệ thống lưu lượng
++ EN 50128: Phần mềm cho hệ thống lưu lượng
++ EN 50126: Bảo vệ điều khiển tàu
++ IEC 61508: Chức năng an toàn hệ thống
 
 ---
 
