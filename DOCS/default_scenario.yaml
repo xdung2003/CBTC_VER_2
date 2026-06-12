@@ -1,0 +1,93 @@
+name: Cấu hình tuyến mặc định
+display:
+  window_title: CBTC ATC Simulation - Single Monitor
+  track_min_m: -220.0
+  track_max_m: 2000.0
+  track_labels:
+  - 0
+  - 500
+  - 1000
+  - 1500
+  - 2000
+  block_mode: moving_block
+train_defaults:
+  length_m: 60.0
+  mass_kg: 291600.0
+  drive_mode: ATO
+  max_ato_speed_kmh: 70.0
+radio_access_points:
+- id: RAP_01
+  start_m: -300.0
+  end_m: 900.0
+- id: RAP_02
+  start_m: 800.0
+  end_m: 1700.0
+- id: RAP_03
+  start_m: 1600.0
+  end_m: 2500.0
+
+localization:
+  balises:
+  - id: BL_-200
+    pos_m: -200.0
+  - id: BL_0000
+    pos_m: 0.0
+  - id: BL_0200
+    pos_m: 200.0
+  - id: BL_0400
+    pos_m: 400.0
+  - id: BL_0600
+    pos_m: 600.0
+  - id: BL_0800
+    pos_m: 800.0
+  - id: BL_1000
+    pos_m: 1000.0
+  - id: BL_1200
+    pos_m: 1200.0
+  - id: BL_1400
+    pos_m: 1400.0
+  - id: BL_1600
+    pos_m: 1600.0
+  - id: BL_1800
+    pos_m: 1800.0
+  - id: BL_2000
+    pos_m: 2000.0
+
+track:
+  segments:
+  - start_m: 0.0
+    end_m: 800.0
+    gradient: 0.02
+    psr_kmh: 60.0
+  - start_m: 800.0
+    end_m: 1000.0
+    gradient: 0.05
+    psr_kmh: 40.0
+  - start_m: 1000.0
+    end_m: 1800.0
+    gradient: -0.06
+    psr_kmh: 60.0
+  - start_m: 1800.0
+    end_m: 2000.0
+    gradient: -0.01
+    psr_kmh: 40.0
+scheduled_stops:
+- name: STATION_1000
+  pos_m: 1000.0
+  length_m: 160.0
+  capacity: 3
+- name: STATION_2000
+  pos_m: 2000.0
+  length_m: 160.0
+  capacity: 4
+trains: []
+source_trains:
+- name: DEPOT
+  start_m: -200.0
+  length_m: 200.0
+  capacity: 4
+  total_trains: 4
+headway:
+  mode: fixed
+  target_headway_s: 80.0
+line_conditions: []

@@ -1,0 +1,22 @@
+﻿from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+
+APP_DIR = Path(__file__).resolve().parent
+if str(APP_DIR) not in sys.path:
+    sys.path.insert(0, str(APP_DIR))
+
+from GUI.main_gui import App
+
+
+def main() -> int:
+    app = App()
+    app.mainloop()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
