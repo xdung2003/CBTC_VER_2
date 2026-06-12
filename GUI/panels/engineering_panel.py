@@ -716,57 +716,7 @@ class DataFlowPanel(ttk.Frame):
             blue,
             "#f7fbff",
         )
-        selected_train = sim.trains[0] if sim.trains else None
-        controller_status = selected_train.controller_status_payload() if selected_train is not None else {
-            "active_controller": "CC_A",
-            "standby_controller": "CC_B",
-            "cc_a_status": "HEALTHY",
-            "cc_b_status": "HEALTHY",
-            "switch_counter": 0,
-        }
-
-        def controller_fill(name: str, status: str) -> str:
-            if status != "HEALTHY":
-                return "#ffd0d0"
-            if controller_status.get("active_controller") == name:
-                return "#dbeafe"
-            if controller_status.get("standby_controller") == name:
-                return "#fff3bf"
-            return "#dcfce7"
-
-        path_x = self._scale(365)
-        path_w = self._scale(92)
-        path_h = self._scale(34)
-        path_gap = self._scale(18)
-        path_y = self._scale(36)
-        c.create_text(
-            path_x,
-            self._scale(18),
-            anchor="w",
-            text=f"Dual Redundant Onboard Controller  active={controller_status.get('active_controller', 'NONE')}",
-            fill=APP_THEME["text"],
-            font=("Consolas", self._scale(8), "bold"),
-        )
-        for row, (cc_name, status_key) in enumerate((("CC_A", "cc_a_status"), ("CC_B", "cc_b_status"))):
-            y = path_y + row * self._scale(58)
-            status = str(controller_status.get(status_key, "HEALTHY"))
-            fill = controller_fill(cc_name, status)
-            outline = "#0b4bd3" if controller_status.get("active_controller") == cc_name else "#d6a600" if controller_status.get("standby_controller") == cc_name else "#1f2933"
-            labels = (cc_name, f"ATP_{cc_name[-1]}", f"ATO_{cc_name[-1]}")
-            for idx, label in enumerate(labels):
-                x = path_x + idx * (path_w + path_gap)
-                c.create_rectangle(x, y, x + path_w, y + path_h, fill=fill, outline=outline, width=2)
-                c.create_text(x + path_w / 2, y + path_h / 2, text=label, fill=APP_THEME["text"], font=("Consolas", self._scale(8), "bold"))
-                if idx < len(labels) - 1:
-                    c.create_line(x + path_w, y + path_h / 2, x + path_w + path_gap, y + path_h / 2, fill=outline, width=2, arrow=tk.LAST)
-            c.create_text(
-                path_x + 3 * (path_w + path_gap),
-                y + path_h / 2,
-                anchor="w",
-                text=status,
-                fill="#d84b3c" if status != "HEALTHY" else "#0a7a16",
-                font=("Consolas", self._scale(8), "bold"),
-            )
+  
         ats = self._diagram_box(
             self._scale(60),
             self._scale(384),
