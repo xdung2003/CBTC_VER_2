@@ -119,7 +119,6 @@ class Simulation:
         self.load_scenario(scenario)
         self.running = False
         self.last_step = time.time()
-        self.tsr_zones = []
 
     def load_scenario(self, scenario: Dict[str, object]):
         self.scenario = scenario
@@ -159,6 +158,15 @@ class Simulation:
                     "start": float(condition.get("start", condition.get("start_m", self.track_min_m))),
                     "end": float(condition.get("end", condition.get("end_m", self.track_max_m))),
                     "condition": str(condition.get("condition", "dry")),
+                }
+            )
+        self.tsr_zones = []
+        for zone in scenario.get("tsr_zones", []):
+            self.tsr_zones.append(
+                {
+                    "start": float(zone.get("start", 0.0)),
+                    "end": float(zone.get("end", 0.0)),
+                    "speed": float(zone.get("speed", 0.0)),
                 }
             )
         palette = list(scenario["color_palette"])
@@ -217,7 +225,6 @@ class Simulation:
         self.zc = ZoneController(self.track_end_m)
         self.zc.last_valid_position_report = self.last_valid_position_report
         self.zc.position_report_freshness = self.position_report_freshness
-        self.tsr_zones = []
         self.sim_time_s = 0.0
         self.analytics = {
             "min_headway_s": None,

@@ -716,7 +716,6 @@ class DataFlowPanel(ttk.Frame):
             blue,
             "#f7fbff",
         )
-  
         ats = self._diagram_box(
             self._scale(60),
             self._scale(384),

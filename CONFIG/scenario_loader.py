@@ -188,6 +188,31 @@ def _normalize_scheduled_stops(raw_stops: List[Dict[str, Any]]) -> List[Dict[str
     return stops
 
 
+def _normalize_tsr_zones(raw_zones: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Normalize and validate Temporary Speed Restriction zones."""
+    zones: List[Dict[str, Any]] = []
+    for idx, zone in enumerate(raw_zones):
+        try:
+            start_m = float(zone["start"])
+            end_m = float(zone["end"])
+            speed_kmh = float(zone["speed"])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError(f"Invalid TSR zone at index {idx}.") from exc
+        if end_m < start_m:
+            start_m, end_m = end_m, start_m
+        if end_m <= start_m:
+            raise ValueError(f"TSR zone {idx} must have end > start.")
+        if speed_kmh <= 0.0:
+            raise ValueError(f"TSR zone {idx} must have speed > 0.")
+        zones.append({
+            "start": start_m,
+            "end": end_m,
+            "speed": speed_kmh,
+        })
+    zones.sort(key=lambda item: item["start"])
+    return zones
+
+
 def normalize_scenario(data: Dict[str, Any], source_path: str | None = None) -> Dict[str, Any]:
     merged = _deep_merge(DEFAULT_SCENARIO, data)
     display = merged.get("display", {})
@@ -209,6 +234,7 @@ def normalize_scenario(data: Dict[str, Any], source_path: str | None = None) -> 
     }
     trains = _normalize_trains(merged["trains"], train_defaults)
     scheduled_stops = _normalize_scheduled_stops(merged.get("scheduled_stops", []))
+    tsr_zones = _normalize_tsr_zones(merged.get("tsr_zones", []))
     raw_headway = merged.get("headway", {}) if isinstance(merged.get("headway", {}), dict) else {}
     headway = {
         "mode": "fixed",
@@ -239,6 +265,7 @@ def normalize_scenario(data: Dict[str, Any], source_path: str | None = None) -> 
         "balises": balises,
         "headway_config_present": True,
         "line_conditions": deepcopy(merged.get("line_conditions", [])),
+        "tsr_zones": tsr_zones,
         "radio_access_points": deepcopy(merged.get("radio_access_points", [])),
         "radio_physical": deepcopy(merged.get("radio_physical", {})),
         "color_palette": deepcopy(DEFAULT_COLOR_PALETTE),
